@@ -28,7 +28,7 @@ const Login = () => {
     console.log("Login Data:", formData);
    
     // const response = await fetch('http://localhost:4000/api/loginuser',{
-     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`,{
+     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/loginuser`,{
       method:'POST',
       headers: {'Content-Type': 'application/json'
       },
