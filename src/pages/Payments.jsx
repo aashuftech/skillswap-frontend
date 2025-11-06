@@ -20,7 +20,7 @@ const Payments = () => {
 
       // Configure Razorpay options
       const options = {
-        key: "rzp_test_RbZFWojAlfpR2j", // Your key_id from .env
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Your key_id from .env
         amount: data.order.amount,
         currency: data.order.currency,
         name: "SkillSwap",
