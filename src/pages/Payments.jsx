@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-
 const Payments = () => {
-   useEffect(() => {
-          AOS.init({ duration: 1000, easing: "ease-in-out", once: true });
-        }, []);
+  useEffect(() => {
+    AOS.init({ duration: 1000, easing: "ease-in-out", once: true });
+  }, []);
+
   const handlePayment = async (amount) => {
     try {
-      // Create an order on backend
-    //   const { data } = await axios.post("http://localhost:4000/api/payments/create-order", {
-    //     amount,
-    //     currency: "INR",
-    //   });
-        const { data } = await axios.post("http://localhost:4000/api/create-order", {
-         amount, currency: "INR",
-         });
+      // Create an order on backend using fetch
+      // const response = await fetch("http://localhost:4000/api/create-order", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/create-order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount, currency: "INR" }),
+      });
+      const data = await response.json();
+
       // Configure Razorpay options
       const options = {
         key: "rzp_test_RbZFWojAlfpR2j", // Your key_id from .env
@@ -25,16 +25,20 @@ const Payments = () => {
         currency: data.order.currency,
         name: "SkillSwap",
         description: "Premium Features Payment",
-        order_id: data.order.id,    // Add this, required by Razorpay
+        order_id: data.order.id, // required by Razorpay
         handler: async (response) => {
-          //Verify payment on backend
-    //    await axios.post("http://localhost:4000/api/payments/verify-payment", response);
-          await axios.post("http://localhost:4000/api/verify-payment", response);
+          // Verify payment on backend
+          // await fetch("http://localhost:4000/api/verify-payment", {
+          await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/verify-payment`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(response),
+          });
           alert("Payment Successful!");
         },
         prefill: {
-          name: "Guru Ji", // optional
-          email: "guruji@example.com", // optional
+          name: "Guru Ji",
+          email: "guruji@example.com",
         },
         theme: { color: "#4F46E5" },
       };
@@ -49,8 +53,10 @@ const Payments = () => {
   };
 
   return (
-    <div  className="px-4 py-35 pt-50 flex flex-col items-center justify-center bg-gradient-to-r from-indigo-50 to-blue-50">
-      <h2 data-aos="fade-up" className="text-3xl font-bold mb-6">SkillSwap Premium Options</h2>
+    <div className="px-4 py-35 pt-50 flex flex-col items-center justify-center bg-gradient-to-r from-indigo-50 to-blue-50">
+      <h2 data-aos="fade-up" className="text-3xl font-bold mb-6">
+        SkillSwap Premium Options
+      </h2>
 
       <div className="flex flex-col md:flex-row gap-6">
         <button

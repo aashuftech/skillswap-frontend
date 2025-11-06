@@ -25,7 +25,8 @@ const AddSkill = () => {
     const userEmail = localStorage.getItem("userEmail");
 
     try {
-      const response = await fetch("http://localhost:4000/api/addskill",{
+      // const response = await fetch("http://localhost:4000/api/addskill",{
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/addskill`,{
         method: 'POST',
         headers: {"Content-Type" : "application/json"},
         body: JSON.stringify({ email:userEmail, name:formData.name, offer:formData.offer, }),

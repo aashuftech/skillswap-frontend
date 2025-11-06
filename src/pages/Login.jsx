@@ -27,7 +27,8 @@ const Login = () => {
     e.preventDefault();
     console.log("Login Data:", formData);
    
-    const response = await fetch('http://localhost:4000/api/loginuser',{
+    // const response = await fetch('http://localhost:4000/api/loginuser',{
+     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`,{
       method:'POST',
       headers: {'Content-Type': 'application/json'
       },
