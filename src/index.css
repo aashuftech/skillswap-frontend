@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* @import url('https://fonts.googleapis.com/css2?family=Nova+Round&family=Outfit:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Saira:ital,wght@0,100..900;1,100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Nova+Round&family=Outfit:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+      font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+}
+
+/* Shine animation only */
+.button-anim {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.button-anim::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: 0.5;
+}
+
+.button-anim:hover {
+  transform: scale(1.05);
+}
+
+.button-anim:hover::before {
+  animation: shine 1.5s ease-out;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+  60% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
